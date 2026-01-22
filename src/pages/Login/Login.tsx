@@ -5,6 +5,7 @@ import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
 import { IoRestaurant } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { UserService } from "../../service/User.service";
 
 type Props = {
   backgroundImageUrl?: string;
@@ -27,43 +28,43 @@ export default function Login({
 
   const { login: contextLogin } = useAuth();
 
-  // async function login() {
-  //   try {
-  //     const payload = { email, password };
+  async function login() {
+    try {
+      const payload = { email, password };
 
-  //     // const data = await UserService.login(payload);
-  //     const data = await UserService.login(payload);
+      // const data = await UserService.login(payload);
+      const data = await UserService.login(payload);
 
-  //     // Salva token no storage
-  //     localStorage.setItem("token", data.token);
+      // Salva token no storage
+      localStorage.setItem("token", data.token);
 
-  //     // Atualiza estado global
-  //     contextLogin(data.token);
+      // Atualiza estado global
+      contextLogin(data.token);
 
-  //     // Redireciona para dashboard
-  //     navigate("/dashboard");
-  //   } catch (error) {
-  //     alert("Email ou senha inválidos");
-  //   }
-  // }
+      // Redireciona para dashboard
+      navigate("/dashboard");
+    } catch (error) {
+      alert("Email ou senha inválidos");
+    }
+  }
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     onSubmit?.({ email, password, remember });
   }
 
-  async function login() {
-  try {
-    const fakeToken = "fake-token-dev-123456";
+  //   async function login() {
+  //   try {
+  //     const fakeToken = "fake-token-dev-123456";
 
-    localStorage.setItem("token", fakeToken);
+  //     localStorage.setItem("token", fakeToken);
 
-    contextLogin(fakeToken);
+  //     contextLogin(fakeToken);
 
-    navigate("/dashboard");
-  } catch (error) {
-    alert("Erro no login fake");
-  }
-}
+  //     navigate("/dashboard");
+  //   } catch (error) {
+  //     alert("Erro no login fake");
+  //   }
+  // }
 
   return (
     <div
